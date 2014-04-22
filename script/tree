@@ -29,23 +29,23 @@ def print_tree(dirname, indent, summary=False):
             continue
         fullname = os.path.join(dirname, filename)
         if os.path.isdir(fullname):
-            print indent + filename
-            print_tree(fullname, indent + '  ', summary=summary)
+            print indent + filename + '/'
+            print_tree(fullname, indent + '    ', summary=summary)
         else:
             print indent + filename
 
 
-def main(argv):
+def main(args):
     summary = True
-    if not argv:
-        argv = ['.']
-    while argv[0].startswith('--'):
-        opt = argv.pop(0)
-        if opt == '--all':
+    while args and args[0].startswith('-'):
+        opt = args.pop(0)
+        if opt in ('-f', '--full'):
             summary = False
         else:
             raise ValueError("Unknown command-line option '%s'" % opt)
-    print_tree(argv[0], '', summary=summary)
+    if not args:
+        args = ['.']
+    print_tree(args[0], '', summary=summary)
 
 
 if __name__ == '__main__':
