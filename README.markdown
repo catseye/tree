@@ -1,10 +1,10 @@
-tree
-====
+`tree`
+======
 
 This is Cat's Eye Technologies' `tree`, a simple command-line tool that
 displays an indented directory tree.  It:
 
-*   is written in Python
+*   is written in Python (tested with 2.7.6)
 *   is small and has no dependencies besides Python
 *   is in the public domain (see `UNLICENSE`)
 *   is really quite crude
