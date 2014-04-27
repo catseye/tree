@@ -25,7 +25,7 @@ displays an indented directory tree.  It:
 Usage
 -----
 
-    tree [-f|--full] [directory-name]
+    tree [-f|--full] [DIRECTORY]
 
 Related work
 ------------
