@@ -7,7 +7,7 @@ import os
 import sys
 
 
-def print_tree(dirname, indent, summary=False):
+def print_tree(dirname, indent, summary=False, maxwidth=75):
     filenames = os.listdir(dirname)
     filenames.sort()
     if summary:
@@ -24,8 +24,8 @@ def print_tree(dirname, indent, summary=False):
         filenames = dirnames
         if subfilenames:
             file_string = ' '.join(subfilenames)
-            if len(indent + file_string) > 75:
-                file_string = file_string[:75 - len(indent)] + '...'
+            if len(indent + file_string) > maxwidth:
+                file_string = file_string[:maxwidth - len(indent)] + '...'
             filenames.append(file_string)
     for filename in filenames:
         if filename.startswith('.'):
@@ -33,22 +33,29 @@ def print_tree(dirname, indent, summary=False):
         fullname = os.path.join(dirname, filename)
         if os.path.isdir(fullname):
             print indent + filename + '/'
-            print_tree(fullname, indent + '    ', summary=summary)
+            print_tree(fullname, indent + '    ', summary=summary,
+                       maxwidth=maxwidth)
         else:
             print indent + filename
 
 
 def main(args):
     summary = True
+    maxwidth = 75
     while args and args[0].startswith('-'):
         opt = args.pop(0)
         if opt in ('-f', '--full'):
             summary = False
+        elif opt in ('-w', '--max-width'):
+            val = args.pop(0)
+            maxwidth = int(val)
+            if maxwidth <= 0:
+                raise ValueError("Illegal --max-width '%s'" % val)
         else:
             raise ValueError("Unknown command-line option '%s'" % opt)
     if not args:
         args = ['.']
-    print_tree(args[0], '', summary=summary)
+    print_tree(args[0], '', summary=summary, maxwidth=maxwidth)
 
 
 if __name__ == '__main__':
