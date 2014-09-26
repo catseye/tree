@@ -17,7 +17,9 @@ def print_tree(dirname, indent, summary=False, maxwidth=75):
             if filename.startswith('.'):
                 continue
             fullname = os.path.join(dirname, filename)
-            if os.path.isdir(fullname):
+            if os.path.islink(fullname):
+                subfilenames.append(filename)
+            elif os.path.isdir(fullname):
                 dirnames.append(filename)
             else:
                 subfilenames.append(filename)

@@ -1,8 +1,8 @@
 `tree`
 ======
 
-This is Cat's Eye Technologies' `tree`, a simple command-line tool that
-displays an indented directory tree.  It:
+This is `tree`, a command-line tool that displays an indented directory tree,
+similar to "The Tree Command for Linux" except simpler.  It:
 
 *   is written in Python (tested with 2.7.6)
 *   is small and has no dependencies besides Python
@@ -12,6 +12,7 @@ displays an indented directory tree.  It:
     me, that's the point of this sort of tool: give me a conceptual overview of
     the directory structure at this point in the filesystem, so I can orient
     myself)
+*   never follows symbolic links
 *   supports one option, `--full`, which lists all files in each directory
     instead of giving you the summary
 *   always outputs a `/` after each directory name
@@ -26,6 +27,8 @@ Usage
 -----
 
     tree [-f|--full] [DIRECTORY]
+
+If DIRECTORY is not supplied, the current directory is assumed.
 
 Related work
 ------------
