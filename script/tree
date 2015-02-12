@@ -8,37 +8,36 @@ import sys
 
 
 def print_tree(dirname, indent, summary=False, maxwidth=75):
-    filenames = os.listdir(dirname)
-    filenames.sort()
-    if summary:
-        dirnames = []
-        subfilenames = []
-        for filename in filenames:
-            if filename.startswith('.'):
-                continue
-            fullname = os.path.join(dirname, filename)
-            if os.path.islink(fullname):
-                subfilenames.append(filename)
-            elif os.path.isdir(fullname):
-                dirnames.append(filename)
-            else:
-                subfilenames.append(filename)
-        filenames = dirnames
-        if subfilenames:
-            file_string = ' '.join(subfilenames)
-            if len(indent + file_string) > maxwidth:
-                file_string = file_string[:(maxwidth - 4) - len(indent)] + '...'
-            filenames.append(file_string)
-    for filename in filenames:
+    dirnames = []
+    filenames = []
+
+    for filename in sorted(os.listdir(dirname)):
         if filename.startswith('.'):
             continue
         fullname = os.path.join(dirname, filename)
-        if os.path.isdir(fullname):
-            print indent + filename + '/'
-            print_tree(fullname, indent + '    ', summary=summary,
-                       maxwidth=maxwidth)
+        if os.path.islink(fullname):
+            filenames.append(filename)
+        elif os.path.isdir(fullname):
+            dirnames.append(filename)
         else:
-            print indent + filename
+            filenames.append(filename)
+
+    if summary:
+        file_string = ' '.join(filenames)
+        if len(indent + file_string) > maxwidth:
+            file_string = file_string[:(maxwidth - 4) - len(indent)] + '...'
+        file_lines = [file_string]
+    else:
+        file_lines = filenames
+
+    for subdirname in dirnames:
+        print indent + subdirname + '/'
+        print_tree(os.path.join(dirname, subdirname), indent + '    ', summary=summary,
+                   maxwidth=maxwidth)
+
+    for file_line in file_lines:
+        if file_line:
+            print indent + file_line
 
 
 def main(args):
