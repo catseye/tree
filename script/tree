@@ -7,7 +7,7 @@ import os
 import sys
 
 
-def print_tree(dirname, indent, summary=False, maxwidth=75):
+def print_tree(dirname, indent, filename_format, maxwidth=75):
     dirnames = []
     filenames = []
 
@@ -22,18 +22,29 @@ def print_tree(dirname, indent, summary=False, maxwidth=75):
         else:
             filenames.append(filename)
 
-    if summary:
+    if filename_format == 'line':
         file_string = ' '.join(filenames)
         if len(indent + file_string) > maxwidth:
             file_string = file_string[:(maxwidth - 4) - len(indent)] + '...'
         file_lines = [file_string]
-    else:
+    elif filename_format == 'block':
+        file_lines = []
+        file_line = ''
+        for filename in filenames:
+            if len(file_line) + len(filename) + 1 >= maxwidth - len(indent):
+                file_lines.append(file_line)
+                file_line = ''
+            file_line += filename + ' '
+        file_lines.append(file_line)
+    elif filename_format == 'list':
         file_lines = filenames
+    else:
+        raise NotImplementedError(filename_format)
 
     for subdirname in dirnames:
         print indent + subdirname + '/'
-        print_tree(os.path.join(dirname, subdirname), indent + '    ', summary=summary,
-                   maxwidth=maxwidth)
+        print_tree(os.path.join(dirname, subdirname), indent + '    ',
+                   filename_format, maxwidth=maxwidth)
 
     for file_line in file_lines:
         if file_line:
@@ -41,7 +52,7 @@ def print_tree(dirname, indent, summary=False, maxwidth=75):
 
 
 def main(args):
-    summary = True
+    filename_format = 'block'
     maxwidth = 75
     try:
         import subprocess
@@ -53,7 +64,9 @@ def main(args):
     while args and args[0].startswith('-'):
         opt = args.pop(0)
         if opt in ('-f', '--full'):
-            summary = False
+            filename_format = 'list'
+        elif opt in ('-1', '--1-line'):
+            filename_format = 'line'
         elif opt in ('-w', '--max-width'):
             val = args.pop(0)
             maxwidth = int(val)
@@ -63,7 +76,7 @@ def main(args):
             raise ValueError("Unknown command-line option '%s'" % opt)
     if not args:
         args = ['.']
-    print_tree(args[0], '', summary=summary, maxwidth=maxwidth)
+    print_tree(args[0], '', filename_format, maxwidth=maxwidth)
 
 
 if __name__ == '__main__':
