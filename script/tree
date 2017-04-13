@@ -42,13 +42,13 @@ def print_tree(dirname, indent, filename_format, maxwidth=75):
         raise NotImplementedError(filename_format)
 
     for subdirname in dirnames:
-        print indent + subdirname + '/'
+        print(indent + subdirname + '/')
         print_tree(os.path.join(dirname, subdirname), indent + '    ',
                    filename_format, maxwidth=maxwidth)
 
     for file_line in file_lines:
         if file_line:
-            print indent + file_line
+            print(indent + file_line)
 
 
 def main(args):
