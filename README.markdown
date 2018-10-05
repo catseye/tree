@@ -1,8 +1,11 @@
 `tree`
 ======
 
-This is `tree`, a command-line tool that displays an indented directory tree,
-similar to "The Tree Command for Linux" except simpler.  It:
+_Version 1.1_
+
+This is Cat's Eye Technologies' `tree`, a command-line tool that displays an
+indented directory tree, similar to "The Tree Command for Linux" except simpler.
+It:
 
 *   is written in Python (tested with 2.7.12 and 3.5.2)
 *   is small and has no dependencies besides Python
