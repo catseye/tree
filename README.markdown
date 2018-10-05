@@ -4,7 +4,7 @@
 This is `tree`, a command-line tool that displays an indented directory tree,
 similar to "The Tree Command for Linux" except simpler.  It:
 
-*   is written in Python (tested with 2.7.6 and 3.5)
+*   is written in Python (tested with 2.7.12 and 3.5.2)
 *   is small and has no dependencies besides Python
 *   is in the public domain (see `UNLICENSE`)
 *   is really quite crude
@@ -19,12 +19,13 @@ similar to "The Tree Command for Linux" except simpler.  It:
 *   has no build/install system; either copy it to somewhere on your
     search path, or alter your search path to include the `script` directory
     in this repo, or use some system that solves this problem, like
-    [shelf](https://github.com/catseye/shelf).
+    [shelf](http://catseye.tc/node/shelf).
 
 Usage
 -----
 
-    tree [-f|--full] [-1|--1-line] [-w|--max-width <int>] [-x|--exclude <list>] [DIRECTORY]
+    tree [-f|--full] [-1|--1-line] [-c|--count]
+         [-w|--max-width <int>] [-x|--exclude <list>] [DIRECTORY]
 
 If DIRECTORY is not supplied, the current directory is assumed.
 
@@ -33,11 +34,15 @@ The `--full` option lists each file in a directory on its own line.
 The `--1-line` option lists a summary of the files in each directory
 on one line, truncating the line if it is longer than the max-width.
 
-If neither of those options are given, all files in a directory are
+The `--count` option causes a count of files in each directory to
+be display instead of listing the files themselves.
+
+If none of those options are given, all files in a directory are
 listed compactly over multiple lines, in a "block".
 
 The `--max-width` option can be used to set the length of truncation
-or block-wrapping.  It defaults to 75.
+or block-wrapping.  It defaults to the width of the terminal window
+as returned by `stty size`, if that program can be run, otherwise 75.
 
 The `--exclude` option sets the list of directory names to not descend
 into (a comma-separated list).  It defaults to `venv`, `node_modules`,
