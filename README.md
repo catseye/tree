@@ -1,7 +1,7 @@
 `tree`
 ======
 
-_Version 1.1_
+_Version 1.2_
 
 This is Cat's Eye Technologies' `tree`, a command-line tool that displays an
 indented directory tree, similar to "The Tree Command for Linux" except simpler.
