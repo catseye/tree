@@ -1,13 +1,13 @@
 `tree`
 ======
 
-_Version 1.1_
+_Version 1.2_
 
 This is Cat's Eye Technologies' `tree`, a command-line tool that displays an
 indented directory tree, similar to "The Tree Command for Linux" except simpler.
 It:
 
-*   is written in Python (tested with 2.7.12 and 3.5.2)
+*   is written in Python (Python 3 by default; also tested with 2.7)
 *   is small and has no dependencies besides Python
 *   is in the public domain (see `UNLICENSE`)
 *   is really quite crude
