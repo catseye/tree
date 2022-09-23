@@ -27,12 +27,15 @@ It:
 Usage
 -----
 
-    tree [-f|--full] [-1|--1-line] [-c|--count]
+    tree [-f|--full] [-a|--all-files] [-1|--1-line] [-c|--count]
          [-w|--max-width <int>] [-x|--exclude <list>] [DIRECTORY]
 
 If DIRECTORY is not supplied, the current directory is assumed.
 
 The `--full` option lists each file in a directory on its own line.
+
+The `--all-files` option includes files whose names begin with a
+`.` character, which would otherwise be hidden.
 
 The `--1-line` option lists a summary of the files in each directory
 on one line, truncating the line if it is longer than the max-width.
