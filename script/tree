@@ -59,7 +59,7 @@ def print_tree(dirname, indent, filename_format, maxwidth=75, excludes=None, all
 def main(args):
     filename_format = 'block'
     maxwidth = 75
-    excludes = ('venv', 'node_modules', '__pycache__')
+    excludes = ('venv', 'node_modules', '__pycache__', '.git')
     all_files = False
     try:
         import subprocess

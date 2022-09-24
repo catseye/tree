@@ -52,7 +52,7 @@ as returned by `stty size`, if that program can be run, otherwise 75.
 
 The `--exclude` option sets the list of directory names to not descend
 into (a comma-separated list).  It defaults to `venv`, `node_modules`,
-and `__pycache__`.
+`__pycache__`, and `.git`.
 
 Related work
 ------------
