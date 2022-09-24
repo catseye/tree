@@ -1,13 +1,13 @@
 `tree`
 ======
 
-_Version 1.1_
+_Version 1.2_
 
 This is Cat's Eye Technologies' `tree`, a command-line tool that displays an
 indented directory tree, similar to "The Tree Command for Linux" except simpler.
 It:
 
-*   is written in Python (tested with 2.7.12 and 3.5.2)
+*   is written in Python (Python 3 by default; also tested with 2.7)
 *   is small and has no dependencies besides Python
 *   is in the public domain (see `UNLICENSE`)
 *   is really quite crude
@@ -27,12 +27,15 @@ It:
 Usage
 -----
 
-    tree [-f|--full] [-1|--1-line] [-c|--count]
+    tree [-f|--full] [-a|--all-files] [-1|--1-line] [-c|--count]
          [-w|--max-width <int>] [-x|--exclude <list>] [DIRECTORY]
 
 If DIRECTORY is not supplied, the current directory is assumed.
 
 The `--full` option lists each file in a directory on its own line.
+
+The `--all-files` option includes files whose names begin with a
+`.` character, which would otherwise be hidden.
 
 The `--1-line` option lists a summary of the files in each directory
 on one line, truncating the line if it is longer than the max-width.
@@ -49,7 +52,7 @@ as returned by `stty size`, if that program can be run, otherwise 75.
 
 The `--exclude` option sets the list of directory names to not descend
 into (a comma-separated list).  It defaults to `venv`, `node_modules`,
-and `__pycache__`.
+`__pycache__`, and `.git`.
 
 Related work
 ------------
